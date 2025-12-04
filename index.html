@@ -39,7 +39,7 @@
       min-height: 100vh;
       scroll-behavior: smooth;
       overflow-x: hidden;
-      cursor: none; /* use custom cursor */
+      cursor: none; /* custom cursor */
     }
 
     a {
@@ -252,7 +252,7 @@
       background: conic-gradient(from 120deg, var(--accent-blue), var(--accent-purple), var(--accent-blue));
       padding: 4px;
       position: relative;
-      animation: spinRing 6s linear infinite;
+      animation: spinRing 9s linear infinite;
       box-shadow: 0 0 30px rgba(54, 209, 255, 0.4);
     }
 
@@ -269,10 +269,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--text-soft);
-      font-size: 0.8rem;
-      text-align: center;
-      padding: 10px;
+      overflow: hidden;
+    }
+
+    .avatar-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+      transform: scale(1.03);
     }
 
     .hero-stats {
@@ -314,6 +319,50 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 22px;
+    }
+
+    /* OPTION D IMAGE FRAME (zoom + glow + soft blur halo) */
+    .image-frame {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #28314c, #11172b);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 18px rgba(0, 0, 0, 0.6);
+      isolation: isolate;
+    }
+
+    .image-frame::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background: radial-gradient(circle at top, rgba(54, 209, 255, 0.12), rgba(181, 55, 255, 0.08));
+      filter: blur(18px);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      z-index: -1;
+    }
+
+    .image-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.02);
+      transition: transform 0.25s ease, filter 0.25s ease;
+      display: block;
+    }
+
+    .image-frame:hover::before {
+      opacity: 1;
+    }
+
+    .image-frame:hover img {
+      transform: scale(1.06);
+      filter: saturate(1.05);
+    }
+
+    .image-frame.small {
+      border-radius: 12px;
     }
 
     /* 2 TRUTHS SECTION */
@@ -371,7 +420,6 @@
     .media-thumb {
       width: 100%;
       height: 160px;
-      background: radial-gradient(circle at top, #28314c, #11172b);
       border-radius: 10px;
       margin-bottom: 14px;
       display: flex;
@@ -380,6 +428,7 @@
       color: var(--text-soft);
       font-size: 0.9rem;
       border: 1px dashed rgba(255, 255, 255, 0.18);
+      background: radial-gradient(circle at top, #28314c, #11172b);
     }
 
     /* SNEAKER TIMELINE */
@@ -392,7 +441,7 @@
 
     .timeline-item {
       display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(0, 2.1fr);
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.9fr);
       gap: 18px;
       align-items: center;
       background: var(--card);
@@ -401,23 +450,56 @@
       border: 1px solid rgba(255, 255, 255, 0.06);
     }
 
+    .timeline-text p {
+      margin: 0;
+    }
+
+    .timeline-tag {
+      font-size: 0.8rem;
+      color: var(--accent-blue);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .timeline-img {
+      height: 140px;
+    }
+
+    .timeline-img.image-frame img {
+      height: 100%;
+    }
+
+    /* alternate sides */
+    .timeline-item:nth-child(even) .timeline-img {
+      order: 2;
+    }
+    .timeline-item:nth-child(even) .timeline-text {
+      order: 1;
+    }
+
     @media (max-width: 720px) {
       .timeline-item {
         grid-template-columns: 1fr;
       }
+      .timeline-item:nth-child(even) .timeline-img,
+      .timeline-item:nth-child(even) .timeline-text {
+        order: unset;
+      }
     }
 
-    .timeline-img {
-      width: 100%;
-      height: 120px;
-      background: radial-gradient(circle at top, #28314c, #11172b);
-      border-radius: 10px;
+    .retirement-gallery {
+      margin-top: 18px;
       display: flex;
-      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
       justify-content: center;
-      color: var(--text-soft);
-      font-size: 0.8rem;
-      border: 1px dashed rgba(255, 255, 255, 0.18);
+    }
+
+    .retirement-gallery .image-frame {
+      flex: 1 1 150px;
+      max-width: 220px;
+      height: 130px;
     }
 
     /* PROJECTS TODAY */
@@ -432,6 +514,70 @@
       font-weight: 700;
       font-size: 1.1rem;
       color: var(--accent-blue);
+    }
+
+    /* VIDEO THUMB */
+    .video-thumb {
+      position: relative;
+      border-style: solid;
+      border-width: 1px;
+      border-color: rgba(255,255,255,0.18);
+      overflow: hidden;
+    }
+
+    .video-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .play-badge {
+      position: absolute;
+      inset: auto 0 10px;
+      margin: auto;
+      width: 60px;
+      height: 60px;
+      border-radius: 999px;
+      background: rgba(5, 8, 20, 0.82);
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      color: #fff;
+      box-shadow: 0 0 18px rgba(0,0,0,0.9);
+      pointer-events: none;
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 5, 15, 0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 3000;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 88vh;
+      border-radius: 14px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.9);
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 18px;
+      right: 26px;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
     }
 
     /* SCROLL REVEAL */
@@ -524,7 +670,7 @@
       <div class="hero-text">
         <h1>Hi, I'm <span>EJ Evangelista</span> ⚡</h1>
         <p>
-          Almost engineer. Retired sneaker reseller. Accidentally semi-viral.  
+          Almost engineer. Retired sneaker reseller. Accidentally semi-viral.
         </p>
 
         <div class="hero-tags">
@@ -534,17 +680,19 @@
         </div>
 
         <div class="hero-buttons">
-          <button class="btn-primary">View My Journey</button>
-          <button class="btn-ghost">
+          <button class="btn-primary" onclick="document.querySelector('#sneakers').scrollIntoView({behavior:'smooth'})">
+            View My Journey
+          </button>
+          <button class="btn-ghost" onclick="document.querySelector('#viral').scrollIntoView({behavior:'smooth'})">
             Watch viral clip <span>📹</span>
           </button>
         </div>
       </div>
 
       <div class="hero-profile">
-        <div class="avatar-ring">
+        <div class="avatar-ring image-frame">
           <div class="avatar-inner">
-            TikTok profile pic<br />goes here 😎
+            <img src="profile.png" alt="EJ profile">
           </div>
         </div>
         <div class="hero-stats">
@@ -571,21 +719,21 @@
           <p class="statement" data-type="truth" onclick="showImage('surgery', this)">
             💉 I already had my surgery at the age of 23
           </p>
-          <img id="surgery" src="surgery.jpg" class="hiddenImg">
+          <img id="surgery" src="surgery.jpg" class="hiddenImg zoomable">
         </div>
 
         <div>
           <p class="statement" data-type="truth" onclick="showImage('australia', this)">
             🌏 I was not born in the Philippines
           </p>
-          <img id="australia" src="australia.jpg" class="hiddenImg">
+          <img id="australia" src="australia.jpg" class="hiddenImg zoomable">
         </div>
 
         <div>
           <p class="statement" data-type="lie" onclick="showImage('badminton', this)">
             🏸 My favorite sport is badminton
           </p>
-          <img id="badminton" src="badminton.jpg" class="hiddenImg">
+          <img id="badminton" src="badminton.jpg" class="hiddenImg zoomable">
         </div>
       </div>
     </section>
@@ -621,24 +769,75 @@
       </p>
 
       <div class="timeline">
+        <!-- 2016 CLEANING -->
         <div class="timeline-item">
-          <div class="timeline-img">2016 – Cleaning sneakers image</div>
-          <p>2016 — Started cleaning sneakers in school<br>→ I basically turned into a shoe janitor. But hey, it paid! 💸</p>
+          <div class="timeline-img image-frame">
+            <img src="cleaning.jpg" alt="Cleaning sneakers in school" class="zoomable">
+          </div>
+          <div class="timeline-text">
+            <div class="timeline-tag">2016 • Cleaning Era</div>
+            <p>Started cleaning sneakers in school.<br>
+              → I basically turned into a shoe janitor. But hey, it paid! 💸</p>
+          </div>
+        </div>
+
+        <!-- 2018 RESELLING -->
+        <div class="timeline-item">
+          <div class="timeline-img image-frame">
+            <img src="reselling.jpg" alt="Reselling sneakers" class="zoomable">
+          </div>
+          <div class="timeline-text">
+            <div class="timeline-tag">2018 • Resell Grind</div>
+            <p>Upgraded to reselling sneakers.<br>
+              → Buy low. Sell high. Pretend I didn't cry when stock didn't move.</p>
+          </div>
+        </div>
+
+        <!-- 2020 SNEAKER BOTS -->
+        <div class="timeline-item">
+          <div class="timeline-img image-frame">
+            <img src="sneakerbot1.jpg" alt="Sneaker bot cook" class="zoomable">
+          </div>
+          <div class="timeline-text">
+            <div class="timeline-tag">2020 • Sneaker Bots 🤖</div>
+            <p>Entered the dark arts of Sneaker Bots.<br>
+              → Fast enough to beat humans. Still slower than the hype kids on Discord.</p>
+          </div>
         </div>
 
         <div class="timeline-item">
-          <div class="timeline-img">2018 – Reselling sneakers image</div>
-          <p>2018 — Upgraded to reselling sneakers<br>→ Buy low. Sell high. Pretend I didn't cry when stock didn't move.</p>
+          <div class="timeline-img image-frame">
+            <img src="sneakerbot2.jpg" alt="Bot errors and logs" class="zoomable">
+          </div>
+          <div class="timeline-text">
+            <div class="timeline-tag">2020 • Error Logs</div>
+            <p>SNKROOO panels and error logs everywhere.<br>
+              → Learned proxies, automation… and how to accept L’s gracefully.</p>
+          </div>
         </div>
 
+        <!-- 2022 RETIREMENT -->
         <div class="timeline-item">
-          <div class="timeline-img">2020 – Sneaker bots image</div>
-          <p>2020 — Entered the dark arts of Sneaker Bots 🤖<br>→ Fast enough to beat humans. Still slower than the hype kids on Discord.</p>
+          <div class="timeline-img image-frame">
+            <img src="retirement.jpg" alt="Sneaker profit spreadsheet" class="zoomable">
+          </div>
+          <div class="timeline-text">
+            <div class="timeline-tag">2022 • Retirement</div>
+            <p>Hung up the sneaker gloves to pursue engineering.<br>
+              → Sneaker spreadsheet says “GG, next chapter.”</p>
+          </div>
         </div>
+      </div>
 
-        <div class="timeline-item">
-          <div class="timeline-img">2022 – Retirement image</div>
-          <p>2022 — Retirement<br>→ Hung up the sneaker gloves to pursue engineering.</p>
+      <div class="retirement-gallery">
+        <div class="image-frame small">
+          <img src="retirement2.jpg" alt="Final sneaker shipments" class="zoomable">
+        </div>
+        <div class="image-frame small">
+          <img src="retirement3.jpg" alt="Jordan 1 lineup" class="zoomable">
+        </div>
+        <div class="image-frame small">
+          <img src="retirement4.jpg" alt="Last pick-ups" class="zoomable">
         </div>
       </div>
 
@@ -652,7 +851,10 @@
       <h2>🎓 Passing the Boards + Accidentally Going Viral</h2>
 
       <div class="card" style="max-width:600px;margin:24px auto 0;">
-        <div class="media-thumb">[ Viral Video Thumbnail Here ]</div>
+        <div class="media-thumb image-frame video-thumb">
+          <img src="viral.jpg" alt="Viral TikTok moment" class="zoomable">
+          <div class="play-badge">▶</div>
+        </div>
         <p>
           I passed the boards… and somehow became semi-famous on Facebook and TikTok 😎  
           (Yes, it was a humble flex.)
@@ -759,7 +961,7 @@
     });
 
     // Enlarge ring on hover
-    const hoverTargets = document.querySelectorAll('button, a, .statement, .card');
+    const hoverTargets = document.querySelectorAll('button, a, .statement, .card, .image-frame, .zoomable');
     hoverTargets.forEach(el => {
       el.addEventListener('mouseenter', () => cursorRing.classList.add('cursor-hover'));
       el.addEventListener('mouseleave', () => cursorRing.classList.remove('cursor-hover'));
@@ -805,7 +1007,28 @@
     }, { threshold: 0.6 });
 
     counters.forEach(c => counterObserver.observe(c));
+
+    // LIGHTBOX (image zoom)
+    const zoomables = document.querySelectorAll('.zoomable');
+    const lightbox = document.createElement('div');
+    lightbox.className = 'lightbox';
+    lightbox.innerHTML = '<span class="lightbox-close">&times;</span><img id="lightbox-img" src="" alt="">';
+    document.body.appendChild(lightbox);
+
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = lightbox.querySelector('.lightbox-close');
+
+    zoomables.forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('open');
+      });
+    });
+
+    lightboxClose.addEventListener('click', () => lightbox.classList.remove('open'));
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) lightbox.classList.remove('open');
+    });
   </script>
 </body>
 </html>
-
