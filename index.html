@@ -132,12 +132,16 @@
     /* LAYOUT */
     main {
       padding-top: 80px;
+      scroll-snap-type: y proximity; /* soft snap between sections */
     }
 
     section {
       max-width: 1100px;
-      margin: auto;
-      padding: 60px 20px;
+      margin: 0 auto 120px;          /* extra gap AFTER each section */
+      padding: 80px 20px;            /* more breathing room inside */
+      min-height: calc(100vh - 80px);/* roughly one viewport minus navbar */
+      scroll-snap-align: start;
+      scroll-margin-top: 80px;       /* so snapped section isn't hidden under nav */
     }
 
     h1, h2, h3 {
@@ -905,14 +909,6 @@
         </div>
 
         <div class="card project-card">
-          <h3>🤖 Machine Learning & AI on Motors</h3>
-          <p>My first ML model detects shaky rotors on motors — teaching computers to judge vibration patterns and catch potential failures before they destroy hardware.</p>
-          <div class="media-thumb project-thumb">
-            Data ➜ Training ➜ AI Magic ➜ Health Score for each motor
-          </div>
-        </div>
-
-        <div class="card project-card">
           <img src="sam_annotation.jpg"
                alt="Custom SAM-based image annotation tool interface"
                class="project-img modal-trigger"
@@ -1074,5 +1070,3 @@
   </script>
 </body>
 </html>
-
-
