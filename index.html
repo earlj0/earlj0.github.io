@@ -13,134 +13,303 @@
       background: #101820;
       color: #fff;
     }
-    header {
-      text-align: center;
-      padding: 60px 20px;
-      background: #0f1420;
-    }
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-    }
-    h2 {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 1.15rem;
-    }
+
+    /* GENERAL SECTIONS */
     section {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: auto;
-      padding: 40px 20px;
+      padding: 60px 20px;
     }
 
-    /* Truth or Lie Game Styling */
+    h1, h2, h3 {
+      margin: 0 0 20px 0;
+    }
+    h1 {
+      font-size: 2.6rem;
+    }
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    header {
+      text-align: center;
+      padding: 70px 20px;
+      background: #0f1420;
+    }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+
+    /* 2 TRUTHS GAME */
+    .truthLie {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      text-align: center;
+    }
     .statement {
       cursor: pointer;
-      padding: 12px 16px;
+      padding: 20px;
       background-color: #1c2536;
-      border-radius: 8px;
-      margin: 10px 0;
-      width: fit-content;
-      transition: background 0.2s, transform 0.2s;
+      border-radius: 12px;
+      width: 260px;
+      min-height: 70px;
+      transition: 0.2s;
     }
     .statement:hover {
       background-color: #2a344a;
-      transform: scale(1.03);
+      transform: scale(1.05);
     }
+    .truth { background: #145a32!important; }
+    .lie { background: #7b241c!important; }
 
     .hiddenImg {
       display: none;
-      max-width: 300px;
+      max-width: 240px;
       border-radius: 10px;
-      margin: 10px 0 25px 0;
+      margin: 10px auto;
       opacity: 0;
-      animation: fadeIn 0.4s forwards;
+      animation: fadeIn .4s forwards;
+    }
+    @keyframes fadeIn { to {opacity: 1;} }
+
+    /* INTERESTS GRID */
+    .interest-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+      gap: 22px;
+    }
+    .card {
+      background: #1c2536;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      transition: .25s;
+    }
+    .card:hover { transform: translateY(-4px); }
+    .interest-img,.media-thumb {
+      width: 100%;
+      height: 160px;
+      background: #2a344a;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      display:flex;align-items:center;justify-content:center;
+      color:#b9ccdb;
+      font-size: 0.9rem;
     }
 
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
+    /* TIMELINE SECTION */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .timeline-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: #1c2536;
+      padding: 20px;
+      border-radius: 12px;
+      transition: .25s;
+    }
+    .timeline-item:hover { transform: translateX(6px); }
+
+    .timeline-img {
+      width: 160px;
+      height: 120px;
+      background:#2a344a;
+      border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+      font-size:0.85rem;color:#9db8c8;
     }
 
-    .truth {
-      background-color: #145a32 !important;
-    }
-    .lie {
-      background-color: #7b241c !important;
+    /* PROJECTS GRID */
+    .projects {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:25px;
+      margin-top:30px;
     }
 
     footer {
       text-align: center;
-      padding: 20px;
+      padding: 30px 0;
       font-size: 0.9rem;
+      opacity: .65;
     }
   </style>
 </head>
 
 <body>
-  <!-- HEADER -->
-  <header>
-    <h1>Hi, I'm EJ!</h1>
-    <p>Student • Explorer • Full of Surprises 🤫</p>
-  </header>
 
-  <!-- 2 Truths and 1 Lie Game -->
-  <section>
-    <h2>2 Truths and 1 Lie</h2>
-    <p>Click a statement to reveal the truth... or find the lie! 😎</p>
+<header>
+  <h1>Hi, I'm EJ 👋</h1>
+  <p>Almost engineer • Semi-viral guy • Retired sneaker lord 😎</p>
+</header>
 
-    <div class="truthLie">
+
+<!-- 2 TRUTHS -->
+<section>
+  <h2>2 Truths and 1 Lie</h2>
+  <p style="text-align:center">Click to reveal 👀</p>
+
+  <div class="truthLie">
+
+    <div>
       <p class="statement" data-type="truth" onclick="showImage('surgery', this)">
         💉 I already had my surgery at the age of 23
       </p>
-      <img id="surgery" src="surgery.jpg" class="hiddenImg" />
+      <img id="surgery" src="surgery.jpg" class="hiddenImg">
+    </div>
 
+    <div>
       <p class="statement" data-type="truth" onclick="showImage('australia', this)">
         🌏 I was not born in the Philippines
       </p>
-      <img id="australia" src="australia.jpg" class="hiddenImg" />
+      <img id="australia" src="australia.jpg" class="hiddenImg">
+    </div>
 
+    <div>
       <p class="statement" data-type="lie" onclick="showImage('badminton', this)">
         🏸 My favorite sport is badminton
       </p>
-      <img id="badminton" src="badminton.jpg" class="hiddenImg" />
+      <img id="badminton" src="badminton.jpg" class="hiddenImg">
     </div>
-  </section>
 
-  <footer>
-    <p>© 2025 EJ Evangelista</p>
-  </footer>
+  </div>
+</section>
 
-  <!-- Confetti Script -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-  <script>
-    function showImage(id, element) {
-      const img = document.getElementById(id);
-      const type = element.getAttribute("data-type");
+<!-- INTERESTS -->
+<section>
+  <h2>My Interests</h2>
+  <div class="interest-cards">
+    <div class="card">
+      <div class="interest-img">FPS Games</div>
+      <p>🎮 SF, PB, WarRock, Valorant</p>
+    </div>
+    <div class="card">
+      <div class="interest-img">Sneakers</div>
+      <p>👟 Hype & heartbreak</p>
+    </div>
+    <div class="card">
+      <div class="interest-img">Sports</div>
+      <p>🏎 F1, NBA, MLB</p>
+    </div>
+    <div class="card">
+      <div class="interest-img">Anime</div>
+      <p>🍥 Naruto, MHA, HxH</p>
+    </div>
+  </div>
+</section>
 
-      // Show image only once (no hide on second click)
-      if (img.style.display !== "block") {
-        img.style.display = "block";
-      }
 
-      // Add color indicators
-      if (type === "truth") {
-        element.classList.add("truth");
-      } else if (type === "lie") {
-        element.classList.add("lie");
+<!-- SNEAKER CAREER -->
+<section>
+  <h2>🧼 Sneaker Reselling Career<br><span style="font-size:1.2rem;">(2016–2022)</span></h2>
 
-        // Confetti celebration 🎉
-        confetti({
-          particleCount: 100,
-          spread: 70,
-          origin: { y: 0.7 },
-        });
-      }
-    }
-  </script>
+  <p style="text-align:center;opacity:.8;margin-bottom:30px">
+    How I accidentally became a shoe entrepreneur 🤷‍♂️
+  </p>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-img">2016 Image</div>
+      <p>2016 — Started cleaning sneakers<br>→ I basically became a shoe janitor. But hey, it paid! 💸</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-img">2018 Image</div>
+      <p>2018 — Upgraded to reselling sneakers<br>→ Buy low. Sell high. Hope it sells.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-img">2020 Image</div>
+      <p>2020 — Entered the dark arts of Sneaker Bots 🤖<br>→ Still slower than 14-yr olds on Discord</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-img">2022 Image</div>
+      <p>2022 — Retirement<br>→ Hung up the sneaker gloves to pursue engineering ⚙️</p>
+    </div>
+
+  </div>
+
+  <p style="text-align:center;margin-top:20px;font-style:italic;">
+    This is where I learned marketing, hustle, automation… and disappointment.
+  </p>
+</section>
+
+
+<!-- VIRAL MOMENT -->
+<section>
+  <h2>🎓 Passing the Boards + Accidentally Going Viral</h2>
+
+  <div class="card" style="max-width:600px;margin:auto;">
+    <div class="media-thumb">Insert Thumbnail</div>
+    <p>I passed the boards… then suddenly semi-viral 😎</p>
+    <p>33K+ reactions on FB 🤯<br>Almost 1M views TikTok 🔥</p>
+    <a style="color:#7ef9ff" href="https://web.facebook.com/earljshua/videos/569030664950983" target="_blank">
+      📎 Watch Video
+    </a>
+  </div>
+</section>
+
+
+<!-- ENGINEERING TODAY -->
+<section>
+  <h2>⚙️ What I’m Doing Today</h2>
+
+  <div class="projects">
+    <div class="card">
+      <div class="media-thumb">ML @ Motors</div>
+      <p>🤖 Detecting shaky motors<br>(teaching computers to judge vibrations)</p>
+    </div>
+    <div class="card">
+      <div class="media-thumb">SAM Tool</div>
+      <p>✂️ SAM-Based Annotation Tool<br>(Digital scissors 🔪 but smart)</p>
+    </div>
+    <div class="card">
+      <div class="media-thumb">Audio AI</div>
+      <p>🎧 Audio Detection — like Dora but for dolphins</p>
+      <a style="color:#7ef9ff" href="https://drive.google.com/file/d/1b5UBkHofOSwqzwLl1UBlVGvfhjIcztbk/view" target="_blank">
+        🔗 Watch Sample
+      </a>
+    </div>
+  </div>
+
+</section>
+
+
+<footer>
+  © 2025 EJ Evangelista
+</footer>
+
+
+<!-- CONFETTI -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+function showImage(id, element) {
+  const img = document.getElementById(id);
+  const type = element.getAttribute("data-type");
+
+  if (img.style.display !== "block") img.style.display = "block";
+
+  if (type === "truth") {
+    element.classList.add("truth");
+  } else {
+    element.classList.add("lie");
+    confetti({ particleCount: 100, spread: 70, origin: { y: 0.7 }});
+  }
+}
+</script>
+
 </body>
 </html>
