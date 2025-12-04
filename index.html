@@ -252,8 +252,9 @@
       background: conic-gradient(from 120deg, var(--accent-blue), var(--accent-purple), var(--accent-blue));
       padding: 4px;
       position: relative;
-      animation: spinRing 9s linear infinite;
+      animation: spinRing 6s linear infinite;
       box-shadow: 0 0 30px rgba(54, 209, 255, 0.4);
+      overflow: hidden;
     }
 
     @keyframes spinRing {
@@ -276,8 +277,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: inherit;
-      transform: scale(1.03);
+      border-radius: 999px;
     }
 
     .hero-stats {
@@ -319,50 +319,6 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 22px;
-    }
-
-    /* OPTION D IMAGE FRAME (zoom + glow + soft blur halo) */
-    .image-frame {
-      position: relative;
-      border-radius: 14px;
-      overflow: hidden;
-      background: radial-gradient(circle at top, #28314c, #11172b);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 0 18px rgba(0, 0, 0, 0.6);
-      isolation: isolate;
-    }
-
-    .image-frame::before {
-      content: "";
-      position: absolute;
-      inset: -30%;
-      background: radial-gradient(circle at top, rgba(54, 209, 255, 0.12), rgba(181, 55, 255, 0.08));
-      filter: blur(18px);
-      opacity: 0;
-      transition: opacity 0.25s ease;
-      z-index: -1;
-    }
-
-    .image-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform: scale(1.02);
-      transition: transform 0.25s ease, filter 0.25s ease;
-      display: block;
-    }
-
-    .image-frame:hover::before {
-      opacity: 1;
-    }
-
-    .image-frame:hover img {
-      transform: scale(1.06);
-      filter: saturate(1.05);
-    }
-
-    .image-frame.small {
-      border-radius: 12px;
     }
 
     /* 2 TRUTHS SECTION */
@@ -416,10 +372,52 @@
       margin-top: 20px;
     }
 
-    .interest-img,
+    .interest-card {
+      padding: 16px 16px 18px;
+    }
+
+    .interest-img {
+      position: relative;
+      width: 100%;
+      height: 170px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .interest-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.8);
+      transition: transform 0.4s ease, filter 0.4s ease;
+    }
+
+    .interest-overlay {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 8px 10px;
+      background: rgba(5, 8, 20, 0.55);
+      backdrop-filter: blur(12px);
+      color: #fff;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .interest-card:hover .interest-img img {
+      transform: scale(1.06);
+      filter: brightness(0.95);
+    }
+
+    /* MEDIA THUMB / PROJECT IMAGES */
     .media-thumb {
       width: 100%;
       height: 160px;
+      background: radial-gradient(circle at top, #28314c, #11172b);
       border-radius: 10px;
       margin-bottom: 14px;
       display: flex;
@@ -428,7 +426,26 @@
       color: var(--text-soft);
       font-size: 0.9rem;
       border: 1px dashed rgba(255, 255, 255, 0.18);
-      background: radial-gradient(circle at top, #28314c, #11172b);
+      text-align: center;
+      padding: 8px;
+    }
+
+    .project-img {
+      width: 100%;
+      max-height: 220px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+      filter: brightness(0.92);
+    }
+
+    .project-card:hover .project-img {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.6);
+      filter: brightness(1);
     }
 
     /* SNEAKER TIMELINE */
@@ -441,7 +458,7 @@
 
     .timeline-item {
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.9fr);
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 2.1fr);
       gap: 18px;
       align-items: center;
       background: var(--card);
@@ -450,56 +467,53 @@
       border: 1px solid rgba(255, 255, 255, 0.06);
     }
 
-    .timeline-text p {
-      margin: 0;
-    }
-
-    .timeline-tag {
-      font-size: 0.8rem;
-      color: var(--accent-blue);
-      margin-bottom: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .timeline-img {
-      height: 140px;
-    }
-
-    .timeline-img.image-frame img {
-      height: 100%;
-    }
-
-    /* alternate sides */
-    .timeline-item:nth-child(even) .timeline-img {
-      order: 2;
-    }
-    .timeline-item:nth-child(even) .timeline-text {
-      order: 1;
-    }
-
     @media (max-width: 720px) {
       .timeline-item {
         grid-template-columns: 1fr;
       }
-      .timeline-item:nth-child(even) .timeline-img,
-      .timeline-item:nth-child(even) .timeline-text {
-        order: unset;
-      }
     }
 
-    .retirement-gallery {
-      margin-top: 18px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-    }
-
-    .retirement-gallery .image-frame {
-      flex: 1 1 150px;
-      max-width: 220px;
+    .timeline-img {
+      width: 100%;
       height: 130px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #28314c, #11172b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 0;
+    }
+
+    .timeline-img.single img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      filter: brightness(0.92);
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .timeline-item:hover .timeline-img.single img {
+      transform: scale(1.05);
+      filter: brightness(1);
+    }
+
+    .timeline-img.multi img {
+      flex: 1;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      filter: brightness(0.9);
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .timeline-img.multi img:hover {
+      transform: scale(1.05);
+      filter: brightness(1);
     }
 
     /* PROJECTS TODAY */
@@ -514,70 +528,6 @@
       font-weight: 700;
       font-size: 1.1rem;
       color: var(--accent-blue);
-    }
-
-    /* VIDEO THUMB */
-    .video-thumb {
-      position: relative;
-      border-style: solid;
-      border-width: 1px;
-      border-color: rgba(255,255,255,0.18);
-      overflow: hidden;
-    }
-
-    .video-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .play-badge {
-      position: absolute;
-      inset: auto 0 10px;
-      margin: auto;
-      width: 60px;
-      height: 60px;
-      border-radius: 999px;
-      background: rgba(5, 8, 20, 0.82);
-      border: 2px solid rgba(255, 255, 255, 0.8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
-      color: #fff;
-      box-shadow: 0 0 18px rgba(0,0,0,0.9);
-      pointer-events: none;
-    }
-
-    /* LIGHTBOX */
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      background: rgba(3, 5, 15, 0.9);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 3000;
-    }
-
-    .lightbox.open {
-      display: flex;
-    }
-
-    .lightbox img {
-      max-width: 92vw;
-      max-height: 88vh;
-      border-radius: 14px;
-      box-shadow: 0 0 30px rgba(0,0,0,0.9);
-    }
-
-    .lightbox-close {
-      position: fixed;
-      top: 18px;
-      right: 26px;
-      font-size: 2rem;
-      color: #fff;
-      cursor: pointer;
     }
 
     /* SCROLL REVEAL */
@@ -626,6 +576,52 @@
     .cursor-hover {
       width: 46px !important;
       height: 46px !important;
+    }
+
+    /* MODAL */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1500;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-content {
+      max-width: 900px;
+      width: 100%;
+      background: var(--bg-soft);
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 0 30px rgba(0,0,0,0.75);
+      padding: 16px 18px 18px;
+    }
+
+    .modal-content img {
+      width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .modal-close {
+      float: right;
+      cursor: pointer;
+      font-size: 1.3rem;
+      opacity: 0.85;
+      margin-left: 8px;
+    }
+
+    #modalCaption {
+      font-size: 0.95rem;
     }
 
     footer {
@@ -680,19 +676,17 @@
         </div>
 
         <div class="hero-buttons">
-          <button class="btn-primary" onclick="document.querySelector('#sneakers').scrollIntoView({behavior:'smooth'})">
-            View My Journey
-          </button>
-          <button class="btn-ghost" onclick="document.querySelector('#viral').scrollIntoView({behavior:'smooth'})">
+          <button class="btn-primary">View My Journey</button>
+          <button class="btn-ghost">
             Watch viral clip <span>📹</span>
           </button>
         </div>
       </div>
 
       <div class="hero-profile">
-        <div class="avatar-ring image-frame">
+        <div class="avatar-ring">
           <div class="avatar-inner">
-            <img src="profile.png" alt="EJ profile">
+            <img src="profile.png" alt="EJ Evangelista TikTok profile" />
           </div>
         </div>
         <div class="hero-stats">
@@ -719,21 +713,21 @@
           <p class="statement" data-type="truth" onclick="showImage('surgery', this)">
             💉 I already had my surgery at the age of 23
           </p>
-          <img id="surgery" src="surgery.jpg" class="hiddenImg zoomable">
+          <img id="surgery" src="surgery.jpg" class="hiddenImg" alt="Post-surgery photo">
         </div>
 
         <div>
           <p class="statement" data-type="truth" onclick="showImage('australia', this)">
             🌏 I was not born in the Philippines
           </p>
-          <img id="australia" src="australia.jpg" class="hiddenImg zoomable">
+          <img id="australia" src="australia.jpg" class="hiddenImg" alt="Childhood in Australia">
         </div>
 
         <div>
           <p class="statement" data-type="lie" onclick="showImage('badminton', this)">
             🏸 My favorite sport is badminton
           </p>
-          <img id="badminton" src="badminton.jpg" class="hiddenImg zoomable">
+          <img id="badminton" src="badminton.jpg" class="hiddenImg" alt="Badminton racket">
         </div>
       </div>
     </section>
@@ -742,21 +736,48 @@
     <section id="interests" class="reveal">
       <h2>My Interests</h2>
       <div class="interest-cards">
-        <div class="card">
-          <div class="interest-img">[ FPS Games Image ]</div>
-          <p>🎮 Special Force, Point Blank, WarRock, Paladins, Valorant</p>
+        <div class="card interest-card">
+          <div class="interest-img">
+            <img src="fps.jpg" alt="Valorant Ascendant rank screenshot">
+            <div class="interest-overlay">
+              <span>Ascendant 1 – Valorant</span>
+              <span>🎯</span>
+            </div>
+          </div>
+          <p>🎮 FPS online games — Special Force, Point Blank, WarRock, Paladins, Valorant.</p>
         </div>
-        <div class="card">
-          <div class="interest-img">[ Sneakers Image ]</div>
-          <p>👟 Sneakers – hype, heartbreak, and holy grails</p>
+
+        <div class="card interest-card">
+          <div class="interest-img">
+            <img src="sneakers.jpg" alt="Sneaker pairs lined up">
+            <div class="interest-overlay">
+              <span>Sneakers & streetwear</span>
+              <span>👟</span>
+            </div>
+          </div>
+          <p>👟 Sneakers – hype pairs, heartbreak L’s, and hunting for grails.</p>
         </div>
-        <div class="card">
-          <div class="interest-img">[ Sports Image ]</div>
-          <p>🏎 Sports: F1, NBA, MLB</p>
+
+        <div class="card interest-card">
+          <div class="interest-img">
+            <img src="sports.jpg" alt="LeBron James, Max Verstappen and Shohei Ohtani collage">
+            <div class="interest-overlay">
+              <span>F1 • NBA • MLB</span>
+              <span>🏎️</span>
+            </div>
+          </div>
+          <p>🏎 Sports: Verstappen in F1, LeBron in the NBA, and Ohtani in the MLB.</p>
         </div>
-        <div class="card">
-          <div class="interest-img">[ Anime Image ]</div>
-          <p>🎌 Anime: Naruto, MHA, Hunter x Hunter</p>
+
+        <div class="card interest-card">
+          <div class="interest-img">
+            <img src="anime.jpg" alt="Naruto, Deku and Gon together">
+            <div class="interest-overlay">
+              <span>Naruto • MHA • HxH</span>
+              <span>🌀</span>
+            </div>
+          </div>
+          <p>🎌 Anime: Naruto, My Hero Academia, Hunter × Hunter — classic shonen energy.</p>
         </div>
       </div>
     </section>
@@ -769,75 +790,73 @@
       </p>
 
       <div class="timeline">
-        <!-- 2016 CLEANING -->
         <div class="timeline-item">
-          <div class="timeline-img image-frame">
-            <img src="cleaning.jpg" alt="Cleaning sneakers in school" class="zoomable">
+          <div class="timeline-img single">
+            <img src="cleaning.jpg"
+                 alt="Shoe Cleanic Facebook page and rows of sneakers for cleaning"
+                 class="modal-trigger"
+                 data-modal-img="cleaning.jpg"
+                 data-modal-caption="2016 — Started cleaning sneakers in school and built Shoe Cleanic." />
           </div>
-          <div class="timeline-text">
-            <div class="timeline-tag">2016 • Cleaning Era</div>
-            <p>Started cleaning sneakers in school.<br>
-              → I basically turned into a shoe janitor. But hey, it paid! 💸</p>
-          </div>
-        </div>
-
-        <!-- 2018 RESELLING -->
-        <div class="timeline-item">
-          <div class="timeline-img image-frame">
-            <img src="reselling.jpg" alt="Reselling sneakers" class="zoomable">
-          </div>
-          <div class="timeline-text">
-            <div class="timeline-tag">2018 • Resell Grind</div>
-            <p>Upgraded to reselling sneakers.<br>
-              → Buy low. Sell high. Pretend I didn't cry when stock didn't move.</p>
-          </div>
-        </div>
-
-        <!-- 2020 SNEAKER BOTS -->
-        <div class="timeline-item">
-          <div class="timeline-img image-frame">
-            <img src="sneakerbot1.jpg" alt="Sneaker bot cook" class="zoomable">
-          </div>
-          <div class="timeline-text">
-            <div class="timeline-tag">2020 • Sneaker Bots 🤖</div>
-            <p>Entered the dark arts of Sneaker Bots.<br>
-              → Fast enough to beat humans. Still slower than the hype kids on Discord.</p>
-          </div>
+          <p>2016 — Started cleaning sneakers in school<br>→ I basically turned into a shoe janitor. But hey, it paid! 💸</p>
         </div>
 
         <div class="timeline-item">
-          <div class="timeline-img image-frame">
-            <img src="sneakerbot2.jpg" alt="Bot errors and logs" class="zoomable">
+          <div class="timeline-img single">
+            <img src="reselling.jpg"
+                 alt="Teen EJ sitting with a stack of black sneakers"
+                 class="modal-trigger"
+                 data-modal-img="reselling.jpg"
+                 data-modal-caption="2018 — Upgraded to reselling sneakers, buying low and selling high." />
           </div>
-          <div class="timeline-text">
-            <div class="timeline-tag">2020 • Error Logs</div>
-            <p>SNKROOO panels and error logs everywhere.<br>
-              → Learned proxies, automation… and how to accept L’s gracefully.</p>
-          </div>
+          <p>2018 — Upgraded to reselling sneakers<br>→ Buy low. Sell high. Pretend I didn't cry when stock didn't move.</p>
         </div>
 
-        <!-- 2022 RETIREMENT -->
         <div class="timeline-item">
-          <div class="timeline-img image-frame">
-            <img src="retirement.jpg" alt="Sneaker profit spreadsheet" class="zoomable">
+          <div class="timeline-img multi">
+            <img src="sneakerbot1.jpg"
+                 alt="Sneaker pairs with Project Kicks PH card"
+                 class="modal-trigger"
+                 data-modal-img="sneakerbot1.jpg"
+                 data-modal-caption="2020 — Running multiples of hyped pairs with sneaker bots." />
+            <img src="sneakerbot2.jpg"
+                 alt="Sneaker bot software error logs"
+                 class="modal-trigger"
+                 data-modal-img="sneakerbot2.jpg"
+                 data-modal-caption="2020 — Sneaker bot software screaming error logs at 3 AM." />
+            <img src="sneakerbot3.jpg"
+                 alt="Proxy management window for sneaker bot setup"
+                 class="modal-trigger"
+                 data-modal-img="sneakerbot3.jpg"
+                 data-modal-caption="2020 — Proxy farm for sneaker botting era." />
           </div>
-          <div class="timeline-text">
-            <div class="timeline-tag">2022 • Retirement</div>
-            <p>Hung up the sneaker gloves to pursue engineering.<br>
-              → Sneaker spreadsheet says “GG, next chapter.”</p>
-          </div>
+          <p>2020 — Entered the dark arts of Sneaker Bots 🤖<br>→ Fast enough to beat humans. Still slower than the hype kids on Discord.</p>
         </div>
-      </div>
 
-      <div class="retirement-gallery">
-        <div class="image-frame small">
-          <img src="retirement2.jpg" alt="Final sneaker shipments" class="zoomable">
-        </div>
-        <div class="image-frame small">
-          <img src="retirement3.jpg" alt="Jordan 1 lineup" class="zoomable">
-        </div>
-        <div class="image-frame small">
-          <img src="retirement4.jpg" alt="Last pick-ups" class="zoomable">
+        <div class="timeline-item">
+          <div class="timeline-img multi">
+            <img src="retirement.jpg"
+                 alt="Spreadsheet of sneaker sales and profits"
+                 class="modal-trigger"
+                 data-modal-img="retirement.jpg"
+                 data-modal-caption="Tracking profit and finally deciding to slow down." />
+            <img src="retirement2.jpg"
+                 alt="Two pairs of Nike and Jordan sneakers with LPU text"
+                 class="modal-trigger"
+                 data-modal-img="retirement2.jpg"
+                 data-modal-caption="Last few personal pairs and university memories." />
+            <img src="retirement3.jpg"
+                 alt="Row of Jordan 1s on top of boxes"
+                 class="modal-trigger"
+                 data-modal-img="retirement3.jpg"
+                 data-modal-caption="Shelves full of Jordan 1s before retiring the business." />
+            <img src="retirement4.jpg"
+                 alt="Masked person holding sneaker boxes"
+                 class="modal-trigger"
+                 data-modal-img="retirement4.jpg"
+                 data-modal-caption="Final few hype deliveries before calling it quits." />
+          </div>
+          <p>2022 — Retirement<br>→ Hung up the sneaker gloves to pursue engineering.</p>
         </div>
       </div>
 
@@ -851,10 +870,11 @@
       <h2>🎓 Passing the Boards + Accidentally Going Viral</h2>
 
       <div class="card" style="max-width:600px;margin:24px auto 0;">
-        <div class="media-thumb image-frame video-thumb">
-          <img src="viral.jpg" alt="Viral TikTok moment" class="zoomable">
-          <div class="play-badge">▶</div>
-        </div>
+        <img src="viral.jpg"
+             alt="TikTok clip screenshot of EJ reacting at his desk"
+             class="project-img modal-trigger"
+             data-modal-img="viral.jpg"
+             data-modal-caption="The TikTok clip that turned a board exam reaction into a semi-viral moment." />
         <p>
           I passed the boards… and somehow became semi-famous on Facebook and TikTok 😎  
           (Yes, it was a humble flex.)
@@ -880,29 +900,42 @@
       </p>
 
       <div class="projects">
-        <div class="card">
+        <div class="card project-card">
           <h3>🎓 Master’s Degree — Manufacturing Engineering</h3>
-          <p>Since 2023 — Yes, I chose pain. But the good kind.</p>
+          <p>Since 2023 — studying manufacturing engineering, optimization, and how to design systems that don’t fall apart under real-world chaos. Yes, I chose pain. But the good kind.</p>
         </div>
 
-        <div class="card">
+        <div class="card project-card">
           <h3>🤖 Machine Learning & AI on Motors</h3>
-          <p>My first ML model detects shaky rotors on motors.<br>
-            Basically teaching computers to judge vibrations.</p>
-          <div class="media-thumb">Data → Training → AI Magic → Output</div>
+          <p>My first ML model detects shaky rotors on motors — teaching computers to judge vibration patterns and catch potential failures before they destroy hardware.</p>
+          <div class="media-thumb project-thumb">
+            Data ➜ Training ➜ AI Magic ➜ Health Score for each motor
+          </div>
         </div>
 
-        <div class="card">
+        <div class="card project-card">
+          <img src="sam_annotation.jpg"
+               alt="Custom SAM-based image annotation tool interface"
+               class="project-img modal-trigger"
+               data-modal-img="sam_annotation.jpg"
+               data-modal-caption="SAM-Based Annotation Tool — speeding up marine dataset labeling with Meta’s Segment Anything Model." />
           <h3>🛠️ SAM-Based Annotation Tool</h3>
-          <p>Built a tool using Meta’s Segment Anything Model.<br>
-            It segments things. Like digital scissors but smarter.</p>
-          <div class="media-thumb">[ SAM Tool Video Placeholder ]</div>
+          <p>Built a desktop tool powered by Meta’s Segment Anything Model to annotate marine images faster. It acts like smart digital scissors: click once, get a clean mask, and move on to the next frame.</p>
+          <p style="margin-top:8px;">
+            <a href="https://drive.google.com/file/d/19aCjLc8EsA8FTRehDTPlywNGTG-VGLIA/view?usp=sharing" target="_blank">
+              🔗 Watch the short tool demo
+            </a>
+          </p>
         </div>
 
-        <div class="card">
+        <div class="card project-card">
+          <img src="audio_detection.jpg"
+               alt="Workstation running a marine mammal audio detection model"
+               class="project-img modal-trigger"
+               data-modal-img="audio_detection.jpg"
+               data-modal-caption="Audio detection pipeline listening to underwater recordings and tagging marine mammals." />
           <h3>🎧 Audio Detection Model</h3>
-          <p>Training an AI to detect sounds — like Dora, but for dolphins/mammals.</p>
-          <div class="media-thumb">[ Audio Model Thumbnail ]</div>
+          <p>Training an AI to detect underwater sounds — dolphins, whales, and other marine mammals — from noisy hydrophone recordings. Think of it as a smart listener for the ocean.</p>
           <p style="margin-top:8px;">
             <a href="https://drive.google.com/file/d/1b5UBkHofOSwqzwLl1UBlVGvfhjIcztbk/view?usp=sharing" target="_blank">
               🔗 Watch sample output
@@ -916,6 +949,15 @@
   <footer>
     © 2025 EJ Evangelista • Built on caffeine, chaos, & GitHub Pages
   </footer>
+
+  <!-- IMAGE MODAL -->
+  <div id="projectModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <img id="modalImage" src="" alt="">
+      <p id="modalCaption"></p>
+    </div>
+  </div>
 
   <!-- CONFETTI -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -961,7 +1003,7 @@
     });
 
     // Enlarge ring on hover
-    const hoverTargets = document.querySelectorAll('button, a, .statement, .card, .image-frame, .zoomable');
+    const hoverTargets = document.querySelectorAll('button, a, .statement, .card');
     hoverTargets.forEach(el => {
       el.addEventListener('mouseenter', () => cursorRing.classList.add('cursor-hover'));
       el.addEventListener('mouseleave', () => cursorRing.classList.remove('cursor-hover'));
@@ -1008,26 +1050,27 @@
 
     counters.forEach(c => counterObserver.observe(c));
 
-    // LIGHTBOX (image zoom)
-    const zoomables = document.querySelectorAll('.zoomable');
-    const lightbox = document.createElement('div');
-    lightbox.className = 'lightbox';
-    lightbox.innerHTML = '<span class="lightbox-close">&times;</span><img id="lightbox-img" src="" alt="">';
-    document.body.appendChild(lightbox);
+    // IMAGE MODAL LOGIC
+    const modal = document.getElementById('projectModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalCaption = document.getElementById('modalCaption');
+    const modalClose = document.querySelector('.modal-close');
 
-    const lightboxImg = document.getElementById('lightbox-img');
-    const lightboxClose = lightbox.querySelector('.lightbox-close');
-
-    zoomables.forEach(img => {
-      img.addEventListener('click', () => {
-        lightboxImg.src = img.src;
-        lightbox.classList.add('open');
+    document.querySelectorAll('.modal-trigger').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const src = el.getAttribute('data-modal-img') || el.getAttribute('src');
+        const cap = el.getAttribute('data-modal-caption') || el.alt || '';
+        if (!src) return;
+        modalImage.src = src;
+        modalCaption.textContent = cap;
+        modal.classList.add('open');
       });
     });
 
-    lightboxClose.addEventListener('click', () => lightbox.classList.remove('open'));
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) lightbox.classList.remove('open');
+    modalClose.addEventListener('click', () => modal.classList.remove('open'));
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('open');
     });
   </script>
 </body>
