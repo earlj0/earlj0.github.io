@@ -6,15 +6,134 @@
   <title>EJ Evangelista | Portfolio</title>
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #101820;
-      color: #fff;
+    :root {
+      --bg: #050814;
+      --bg-soft: #0b1020;
+      --card: #11172b;
+      --accent-blue: #36d1ff;
+      --accent-purple: #b537ff;
+      --text-main: #ffffff;
+      --text-soft: #c2c8d8;
+      --nav-bg: rgba(5, 8, 20, 0.9);
     }
 
-    /* GENERAL SECTIONS */
+    body.light {
+      --bg: #f3f5ff;
+      --bg-soft: #ffffff;
+      --card: #ebedff;
+      --text-main: #111322;
+      --text-soft: #4a4f63;
+      --nav-bg: rgba(235, 237, 255, 0.9);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #10172f 0, var(--bg) 38%);
+      color: var(--text-main);
+      min-height: 100vh;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      cursor: none; /* use custom cursor */
+    }
+
+    a {
+      color: var(--accent-blue);
+      text-decoration: none;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(14px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .nav-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: conic-gradient(from 0deg, var(--accent-blue), var(--accent-purple), var(--accent-blue));
+      box-shadow: 0 0 10px var(--accent-blue);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--text-soft);
+      transition: 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+      background: rgba(54, 209, 255, 0.16);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mode-toggle {
+      width: 40px;
+      height: 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      padding: 2px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .mode-knob {
+      width: 16px;
+      height: 16px;
+      background: var(--accent-blue);
+      border-radius: 999px;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    body.light .mode-knob {
+      transform: translateX(18px);
+      background: var(--accent-purple);
+    }
+
+    /* LAYOUT */
+    main {
+      padding-top: 80px;
+    }
+
     section {
       max-width: 1100px;
       margin: auto;
@@ -22,50 +141,209 @@
     }
 
     h1, h2, h3 {
-      margin: 0 0 20px 0;
+      margin-bottom: 18px;
     }
+
     h1 {
-      font-size: 2.6rem;
+      font-size: clamp(2.4rem, 4vw, 3rem);
     }
+
     h2 {
-      font-size: 2rem;
-      margin-bottom: 30px;
+      font-size: clamp(1.8rem, 3vw, 2.2rem);
       text-align: center;
     }
 
-    header {
-      text-align: center;
-      padding: 70px 20px;
-      background: #0f1420;
-    }
     p {
-      font-size: 1.1rem;
-      line-height: 1.5;
+      font-size: 1.02rem;
+      line-height: 1.55;
+      color: var(--text-soft);
     }
 
-    /* 2 TRUTHS GAME */
-    .truthLie {
+    /* HERO SECTION */
+    #hero {
+      display: grid;
+      grid-template-columns: minmax(0,1.4fr) minmax(0,1fr);
+      gap: 32px;
+      align-items: center;
+    }
+
+    @media (max-width: 800px) {
+      #hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hero-text h1 span {
+      background: linear-gradient(120deg, var(--accent-blue), var(--accent-purple));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0 20px;
+    }
+
+    .pill {
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-soft);
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .btn-primary {
+      position: relative;
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(120deg, var(--accent-blue), var(--accent-purple));
+      color: #050814;
+      font-weight: 600;
+      cursor: pointer;
+      overflow: hidden;
+      box-shadow: 0 0 18px rgba(54, 209, 255, 0.5);
+      transform: translateY(0);
+      transition: transform 0.15s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: transparent;
+      color: var(--text-main);
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .hero-profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .avatar-ring {
+      width: 180px;
+      height: 180px;
+      border-radius: 999px;
+      background: conic-gradient(from 120deg, var(--accent-blue), var(--accent-purple), var(--accent-blue));
+      padding: 4px;
+      position: relative;
+      animation: spinRing 6s linear infinite;
+      box-shadow: 0 0 30px rgba(54, 209, 255, 0.4);
+    }
+
+    @keyframes spinRing {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: radial-gradient(circle at top, #20263b, #050814);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-soft);
+      font-size: 0.8rem;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .stat-chip {
+      background: var(--card);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .stat-chip span {
+      font-weight: 700;
+      color: var(--accent-blue);
+    }
+
+    /* REUSABLE CARDS & GRIDS */
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 0 22px rgba(0, 0, 0, 0.45);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 28px rgba(54, 209, 255, 0.22);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+    }
+
+    /* 2 TRUTHS SECTION */
+    #truths .truthLie {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
       gap: 20px;
       text-align: center;
+      margin-top: 18px;
     }
+
     .statement {
       cursor: pointer;
-      padding: 20px;
-      background-color: #1c2536;
+      padding: 18px;
+      background-color: var(--card);
       border-radius: 12px;
       width: 260px;
       min-height: 70px;
       transition: 0.2s;
+      border: 1px solid rgba(255, 255, 255, 0.06);
     }
+
     .statement:hover {
-      background-color: #2a344a;
-      transform: scale(1.05);
+      transform: translateY(-3px);
+      box-shadow: 0 0 14px rgba(54, 209, 255, 0.4);
     }
-    .truth { background: #145a32!important; }
-    .lie { background: #7b241c!important; }
+
+    .truth { background: #145a32 !important; }
+    .lie { background: #7b241c !important; }
 
     .hiddenImg {
       display: none;
@@ -73,243 +351,462 @@
       border-radius: 10px;
       margin: 10px auto;
       opacity: 0;
-      animation: fadeIn .4s forwards;
+      animation: fadeIn 0.4s forwards;
+      border: 1px solid rgba(255, 255, 255, 0.18);
     }
-    @keyframes fadeIn { to {opacity: 1;} }
 
-    /* INTERESTS GRID */
-    .interest-cards {
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* INTERESTS */
+    #interests .interest-cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 22px;
+      margin-top: 20px;
     }
-    .card {
-      background: #1c2536;
-      padding: 20px;
-      border-radius: 12px;
-      text-align: center;
-      transition: .25s;
-    }
-    .card:hover { transform: translateY(-4px); }
-    .interest-img,.media-thumb {
+
+    .interest-img,
+    .media-thumb {
       width: 100%;
       height: 160px;
-      background: #2a344a;
+      background: radial-gradient(circle at top, #28314c, #11172b);
       border-radius: 10px;
-      margin-bottom: 15px;
-      display:flex;align-items:center;justify-content:center;
-      color:#b9ccdb;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-soft);
       font-size: 0.9rem;
+      border: 1px dashed rgba(255, 255, 255, 0.18);
     }
 
-    /* TIMELINE SECTION */
+    /* SNEAKER TIMELINE */
     .timeline {
       display: flex;
       flex-direction: column;
-      gap: 30px;
+      gap: 18px;
+      margin-top: 24px;
     }
+
     .timeline-item {
-      display: flex;
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 2.1fr);
+      gap: 18px;
       align-items: center;
-      gap: 20px;
-      background: #1c2536;
-      padding: 20px;
+      background: var(--card);
+      padding: 16px 18px;
       border-radius: 12px;
-      transition: .25s;
+      border: 1px solid rgba(255, 255, 255, 0.06);
     }
-    .timeline-item:hover { transform: translateX(6px); }
+
+    @media (max-width: 720px) {
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+    }
 
     .timeline-img {
-      width: 160px;
+      width: 100%;
       height: 120px;
-      background:#2a344a;
-      border-radius:10px;
-      display:flex;align-items:center;justify-content:center;
-      font-size:0.85rem;color:#9db8c8;
+      background: radial-gradient(circle at top, #28314c, #11172b);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-soft);
+      font-size: 0.8rem;
+      border: 1px dashed rgba(255, 255, 255, 0.18);
     }
 
-    /* PROJECTS GRID */
-    .projects {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:25px;
-      margin-top:30px;
+    /* PROJECTS TODAY */
+    #today .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+      margin-top: 24px;
+    }
+
+    .counter {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--accent-blue);
+    }
+
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* CUSTOM CURSOR */
+    .cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: var(--accent-blue);
+      pointer-events: none;
+      mix-blend-mode: screen;
+      z-index: 2000;
+      box-shadow: 0 0 18px rgba(54, 209, 255, 0.9);
+      transform: translate(-50%, -50%);
+    }
+
+    .cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 1px solid rgba(182, 55, 255, 0.9);
+      pointer-events: none;
+      mix-blend-mode: screen;
+      z-index: 1999;
+      transform: translate(-50%, -50%);
+      transition: width 0.12s ease, height 0.12s ease;
+    }
+
+    .cursor-hover {
+      width: 46px !important;
+      height: 46px !important;
     }
 
     footer {
       text-align: center;
-      padding: 30px 0;
-      font-size: 0.9rem;
-      opacity: .65;
+      padding: 30px 0 40px;
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      opacity: 0.8;
     }
   </style>
 </head>
 
 <body>
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
 
-<header>
-  <h1>Hi, I'm EJ 👋</h1>
-  <p>Almost engineer • Semi-viral guy • Retired sneaker lord 😎</p>
-</header>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <div class="nav-dot"></div>
+      <span>EJ • NeoPortfolio</span>
+    </div>
+    <div class="nav-links">
+      <a href="#hero">Intro</a>
+      <a href="#truths">2 Truths</a>
+      <a href="#interests">Interests</a>
+      <a href="#sneakers">Sneakers</a>
+      <a href="#viral">Viral</a>
+      <a href="#today">Today</a>
+    </div>
+    <div class="nav-right">
+      <div class="mode-toggle" id="modeToggle">
+        <div class="mode-knob"></div>
+      </div>
+    </div>
+  </nav>
 
+  <main>
+    <!-- HERO -->
+    <section id="hero" class="reveal">
+      <div class="hero-text">
+        <h1>Hi, I'm <span>EJ Evangelista</span> ⚡</h1>
+        <p>
+          Almost engineer. Retired sneaker reseller. Accidentally semi-viral.  
+          Currently mixing <strong>manufacturing engineering</strong>, <strong>machine learning</strong>,
+          and a bit of chaos to build cool stuff.
+        </p>
 
-<!-- 2 TRUTHS -->
-<section>
-  <h2>2 Truths and 1 Lie</h2>
-  <p style="text-align:center">Click to reveal 👀</p>
+        <div class="hero-tags">
+          <div class="pill">🎓 Manufacturing Engineering (since 2023)</div>
+          <div class="pill">🤖 ML & AI on Motors</div>
+          <div class="pill">🧼 Ex-Sneaker Hustler</div>
+        </div>
 
-  <div class="truthLie">
+        <div class="hero-buttons">
+          <button class="btn-primary">View My Journey</button>
+          <button class="btn-ghost">
+            Watch viral clip <span>📹</span>
+          </button>
+        </div>
+      </div>
 
-    <div>
-      <p class="statement" data-type="truth" onclick="showImage('surgery', this)">
-        💉 I already had my surgery at the age of 23
+      <div class="hero-profile">
+        <div class="avatar-ring">
+          <div class="avatar-inner">
+            TikTok profile pic<br />goes here 😎
+          </div>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-chip">
+            <span class="counter" data-target="6">0</span>+ yrs hustle
+          </div>
+          <div class="stat-chip">
+            <span class="counter" data-target="33">0</span>K FB reactions
+          </div>
+          <div class="stat-chip">
+            <span class="counter" data-target="1">0</span>M TikTok views (almost)
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 TRUTHS & 1 LIE -->
+    <section id="truths" class="reveal">
+      <h2>2 Truths and 1 Lie</h2>
+      <p style="text-align:center;margin-top:4px;">Click to reveal 👀</p>
+
+      <div class="truthLie" style="margin-top:18px;">
+        <div>
+          <p class="statement" data-type="truth" onclick="showImage('surgery', this)">
+            💉 I already had my surgery at the age of 23
+          </p>
+          <img id="surgery" src="surgery.jpg" class="hiddenImg">
+        </div>
+
+        <div>
+          <p class="statement" data-type="truth" onclick="showImage('australia', this)">
+            🌏 I was not born in the Philippines
+          </p>
+          <img id="australia" src="australia.jpg" class="hiddenImg">
+        </div>
+
+        <div>
+          <p class="statement" data-type="lie" onclick="showImage('badminton', this)">
+            🏸 My favorite sport is badminton
+          </p>
+          <img id="badminton" src="badminton.jpg" class="hiddenImg">
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERESTS -->
+    <section id="interests" class="reveal">
+      <h2>My Interests</h2>
+      <div class="interest-cards">
+        <div class="card">
+          <div class="interest-img">[ FPS Games Image ]</div>
+          <p>🎮 Special Force, Point Blank, WarRock, Paladins, Valorant</p>
+        </div>
+        <div class="card">
+          <div class="interest-img">[ Sneakers Image ]</div>
+          <p>👟 Sneakers – hype, heartbreak, and holy grails</p>
+        </div>
+        <div class="card">
+          <div class="interest-img">[ Sports Image ]</div>
+          <p>🏎 Sports: F1, NBA, MLB</p>
+        </div>
+        <div class="card">
+          <div class="interest-img">[ Anime Image ]</div>
+          <p>🎌 Anime: Naruto, MHA, Hunter x Hunter</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SNEAKER CAREER -->
+    <section id="sneakers" class="reveal">
+      <h2>🧼 Sneaker Reselling Career (2016–2022)</h2>
+      <p style="text-align:center; margin-bottom:24px;">
+        How I accidentally became a shoe entrepreneur
       </p>
-      <img id="surgery" src="surgery.jpg" class="hiddenImg">
-    </div>
 
-    <div>
-      <p class="statement" data-type="truth" onclick="showImage('australia', this)">
-        🌏 I was not born in the Philippines
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-img">2016 – Cleaning sneakers image</div>
+          <p>2016 — Started cleaning sneakers in school<br>→ I basically turned into a shoe janitor. But hey, it paid! 💸</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-img">2018 – Reselling sneakers image</div>
+          <p>2018 — Upgraded to reselling sneakers<br>→ Buy low. Sell high. Pretend I didn't cry when stock didn't move.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-img">2020 – Sneaker bots image</div>
+          <p>2020 — Entered the dark arts of Sneaker Bots 🤖<br>→ Fast enough to beat humans. Still slower than the hype kids on Discord.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-img">2022 – Retirement image</div>
+          <p>2022 — Retirement<br>→ Hung up the sneaker gloves to pursue engineering.</p>
+        </div>
+      </div>
+
+      <p style="text-align:center;margin-top:20px;font-style:italic;">
+        This is where I learned marketing, hustle, automation… and disappointment.
       </p>
-      <img id="australia" src="australia.jpg" class="hiddenImg">
-    </div>
+    </section>
 
-    <div>
-      <p class="statement" data-type="lie" onclick="showImage('badminton', this)">
-        🏸 My favorite sport is badminton
+    <!-- VIRAL MOMENT -->
+    <section id="viral" class="reveal">
+      <h2>🎓 Passing the Boards + Accidentally Going Viral</h2>
+
+      <div class="card" style="max-width:600px;margin:24px auto 0;">
+        <div class="media-thumb">[ Viral Video Thumbnail Here ]</div>
+        <p>
+          I passed the boards… and somehow became semi-famous on Facebook and TikTok 😎  
+          (Yes, it was a humble flex.)
+        </p>
+        <p style="margin-top:10px;">
+          <span class="counter" data-target="33">0</span>K+ reactions on Facebook 🤯  
+          Almost <span class="counter" data-target="1">0</span>M views on TikTok
+        </p>
+        <p style="margin-top:10px;">
+          <a href="https://web.facebook.com/earljshua/videos/569030664950983" target="_blank">
+            📎 Watch the FB video
+          </a>
+        </p>
+      </div>
+    </section>
+
+    <!-- WHAT I'M DOING TODAY -->
+    <section id="today" class="reveal">
+      <h2>⚙️ What I’m Doing Today</h2>
+
+      <p style="text-align:center; max-width:700px; margin: 0 auto 24px;">
+        Because adulting began and said: “It’s engineering time.”
       </p>
-      <img id="badminton" src="badminton.jpg" class="hiddenImg">
-    </div>
 
-  </div>
-</section>
+      <div class="projects">
+        <div class="card">
+          <h3>🎓 Master’s Degree — Manufacturing Engineering</h3>
+          <p>Since 2023 — Yes, I chose pain. But the good kind.</p>
+        </div>
 
+        <div class="card">
+          <h3>🤖 Machine Learning & AI on Motors</h3>
+          <p>My first ML model detects shaky rotors on motors.<br>
+            Basically teaching computers to judge vibrations.</p>
+          <div class="media-thumb">Data → Training → AI Magic → Output</div>
+        </div>
 
-<!-- INTERESTS -->
-<section>
-  <h2>My Interests</h2>
-  <div class="interest-cards">
-    <div class="card">
-      <div class="interest-img">FPS Games</div>
-      <p>🎮 SF, PB, WarRock, Valorant</p>
-    </div>
-    <div class="card">
-      <div class="interest-img">Sneakers</div>
-      <p>👟 Hype & heartbreak</p>
-    </div>
-    <div class="card">
-      <div class="interest-img">Sports</div>
-      <p>🏎 F1, NBA, MLB</p>
-    </div>
-    <div class="card">
-      <div class="interest-img">Anime</div>
-      <p>🍥 Naruto, MHA, HxH</p>
-    </div>
-  </div>
-</section>
+        <div class="card">
+          <h3>🛠️ SAM-Based Annotation Tool</h3>
+          <p>Built a tool using Meta’s Segment Anything Model.<br>
+            It segments things. Like digital scissors but smarter.</p>
+          <div class="media-thumb">[ SAM Tool Video Placeholder ]</div>
+        </div>
 
+        <div class="card">
+          <h3>🎧 Audio Detection Model</h3>
+          <p>Training an AI to detect sounds — like Dora, but for dolphins/mammals.</p>
+          <div class="media-thumb">[ Audio Model Thumbnail ]</div>
+          <p style="margin-top:8px;">
+            <a href="https://drive.google.com/file/d/1b5UBkHofOSwqzwLl1UBlVGvfhjIcztbk/view?usp=sharing" target="_blank">
+              🔗 Watch sample output
+            </a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
 
-<!-- SNEAKER CAREER -->
-<section>
-  <h2>🧼 Sneaker Reselling Career<br><span style="font-size:1.2rem;">(2016–2022)</span></h2>
+  <footer>
+    © 2025 EJ Evangelista • Built on caffeine, chaos, & GitHub Pages
+  </footer>
 
-  <p style="text-align:center;opacity:.8;margin-bottom:30px">
-    How I accidentally became a shoe entrepreneur 🤷‍♂️
-  </p>
+  <!-- CONFETTI -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-  <div class="timeline">
+  <script>
+    // 2 TRUTHS GAME
+    function showImage(id, element) {
+      const img = document.getElementById(id);
+      const type = element.getAttribute("data-type");
 
-    <div class="timeline-item">
-      <div class="timeline-img">2016 Image</div>
-      <p>2016 — Started cleaning sneakers<br>→ I basically became a shoe janitor. But hey, it paid! 💸</p>
-    </div>
+      if (img.style.display !== "block") {
+        img.style.display = "block";
+      }
 
-    <div class="timeline-item">
-      <div class="timeline-img">2018 Image</div>
-      <p>2018 — Upgraded to reselling sneakers<br>→ Buy low. Sell high. Hope it sells.</p>
-    </div>
+      if (type === "truth") {
+        element.classList.add("truth");
+      } else {
+        element.classList.add("lie");
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.7 }
+        });
+      }
+    }
 
-    <div class="timeline-item">
-      <div class="timeline-img">2020 Image</div>
-      <p>2020 — Entered the dark arts of Sneaker Bots 🤖<br>→ Still slower than 14-yr olds on Discord</p>
-    </div>
+    // MODE TOGGLE
+    const modeToggle = document.getElementById('modeToggle');
+    modeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+    });
 
-    <div class="timeline-item">
-      <div class="timeline-img">2022 Image</div>
-      <p>2022 — Retirement<br>→ Hung up the sneaker gloves to pursue engineering ⚙️</p>
-    </div>
+    // CUSTOM CURSOR
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorRing = document.querySelector('.cursor-ring');
+    let mouseX = 0, mouseY = 0;
 
-  </div>
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+      cursorRing.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+    });
 
-  <p style="text-align:center;margin-top:20px;font-style:italic;">
-    This is where I learned marketing, hustle, automation… and disappointment.
-  </p>
-</section>
+    // Enlarge ring on hover
+    const hoverTargets = document.querySelectorAll('button, a, .statement, .card');
+    hoverTargets.forEach(el => {
+      el.addEventListener('mouseenter', () => cursorRing.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => cursorRing.classList.remove('cursor-hover'));
+    });
 
+    // SCROLL REVEAL
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
 
-<!-- VIRAL MOMENT -->
-<section>
-  <h2>🎓 Passing the Boards + Accidentally Going Viral</h2>
+    revealEls.forEach(el => observer.observe(el));
 
-  <div class="card" style="max-width:600px;margin:auto;">
-    <div class="media-thumb">Insert Thumbnail</div>
-    <p>I passed the boards… then suddenly semi-viral 😎</p>
-    <p>33K+ reactions on FB 🤯<br>Almost 1M views TikTok 🔥</p>
-    <a style="color:#7ef9ff" href="https://web.facebook.com/earljshua/videos/569030664950983" target="_blank">
-      📎 Watch Video
-    </a>
-  </div>
-</section>
+    // COUNTERS
+    function animateCounter(el) {
+      const target = Number(el.getAttribute('data-target'));
+      let start = 0;
+      const duration = 1600;
+      const startTime = performance.now();
 
+      function update(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const value = Math.floor(progress * target);
+        el.textContent = value;
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
 
-<!-- ENGINEERING TODAY -->
-<section>
-  <h2>⚙️ What I’m Doing Today</h2>
+    const counters = document.querySelectorAll('.counter');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          animateCounter(e.target);
+          counterObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.6 });
 
-  <div class="projects">
-    <div class="card">
-      <div class="media-thumb">ML @ Motors</div>
-      <p>🤖 Detecting shaky motors<br>(teaching computers to judge vibrations)</p>
-    </div>
-    <div class="card">
-      <div class="media-thumb">SAM Tool</div>
-      <p>✂️ SAM-Based Annotation Tool<br>(Digital scissors 🔪 but smart)</p>
-    </div>
-    <div class="card">
-      <div class="media-thumb">Audio AI</div>
-      <p>🎧 Audio Detection — like Dora but for dolphins</p>
-      <a style="color:#7ef9ff" href="https://drive.google.com/file/d/1b5UBkHofOSwqzwLl1UBlVGvfhjIcztbk/view" target="_blank">
-        🔗 Watch Sample
-      </a>
-    </div>
-  </div>
-
-</section>
-
-
-<footer>
-  © 2025 EJ Evangelista
-</footer>
-
-
-<!-- CONFETTI -->
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
-<script>
-function showImage(id, element) {
-  const img = document.getElementById(id);
-  const type = element.getAttribute("data-type");
-
-  if (img.style.display !== "block") img.style.display = "block";
-
-  if (type === "truth") {
-    element.classList.add("truth");
-  } else {
-    element.classList.add("lie");
-    confetti({ particleCount: 100, spread: 70, origin: { y: 0.7 }});
-  }
-}
-</script>
-
+    counters.forEach(c => counterObserver.observe(c));
+  </script>
 </body>
 </html>
